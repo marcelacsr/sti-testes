@@ -1,0 +1,42 @@
+<% provide(:title, 'Notifications') %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Notifications (<%= @notifications.count %>)</h1>
+      <% @notifications.each do |notification| %>
+          <div class="line">
+            <div class="timestamp">
+              <p> <%= link_to notification.follower.name,
+                              notification.follower %>
+                solicita seguir você.
+                | <%= time_ago_in_words(notification.created_at) %> ago</p>
+            </div>
+            <% unless notification.notification_read %>
+                <div class="row">
+                  <div class="btn-group">
+                    <div class="col-md-6">
+                      <%= form_for(current_user.passive_relationships.build,
+                                   remote: true) do |f| %>
+                          <%= hidden_field_tag :follower_id,
+                                               notification.follower_id %>
+                          <%= hidden_field_tag :notification_id,
+                                               notification.id %>
+                          <%= f.submit 'Approve', style: 'color:#FFFFFF;',
+                                       class: 'btn btn-success' %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-6">
+                      <%= button_to 'Ignore', notification,
+                                    style: 'color:#FFFFFF;',
+                                    class: 'btn btn-danger pull-right',
+                                    method: :delete,
+                                    data: {confirm: 'You sure?'} %>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

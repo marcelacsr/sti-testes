@@ -1,0 +1,4 @@
+<%= form_tag notification_undo_path(@user.received_notifications
+                .where(follower_id: current_user.id).last), remote: true do %>
+    <%= submit_tag "Cancel notification", class: "btn" %>
+<% end %>

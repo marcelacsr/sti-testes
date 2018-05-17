@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+
+  <!--stylesheet_link_tag function with two
+  arguments: a string, indicating the path
+  to the stylesheet, and a hash with two
+  elements, indicating the media type and
+  telling Rails to use the turbolinks feature
+  added in Rails 4.0. Because of the
+< %= %> brackets, the results are inserted
+into the template by ERb, and if you view
+the source of the page in your browser you
+should see the HTML needed to include a
+stylesheet
+-->
+
+  <%= stylesheet_link_tag 'application', media: 'all',
+                          'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+  <!--< %= render 'layouts/rails_default' %>-->
+
+  <%= render 'layouts/shim' %>
+</head>
+<body>
+<%= render 'layouts/header' %>
+
+<!--the container class has special meaning to
+Bootstrap. As we learned in Section 3.4.3, the
+yield method inserts the contents of each page
+into the site layout.????-->
+<div class="container">
+<div id="div-flash">
+  <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+  <% end %>
+</div>
+  <%= yield %>
+  <%= render 'layouts/footer' %>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<li class="line">
+  <%= avatar_for user, size: 80 %>
+  <%= link_to user.name, user %>
+  <%= render 'shared/stats' %>
+  <% if current_user.admin? && !current_user?(user) %>
+        <%= link_to "delete", user, style: 'color:#FFFFFF;',
+                      class: 'btn btn-danger pull-right',
+                    method: :delete, data: {confirm: "You sure?"} %>
+  <% end %>
+</li>

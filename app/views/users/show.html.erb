@@ -1,0 +1,34 @@
+<% provide(:title, @user.name) %>
+<div class="row ">
+  <div class="col-md-5 ">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <%= avatar_for @user, size: 80 %>
+           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 info">
+            <div class="nome-profile"><%= @user.name %></div>
+            <p class="text-muted bio"><%= @user.bio %></p>
+            <p class="text-muted bio">Privado? <%= @user.private_profile? %></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= render 'shared/stats' %>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-md-7">
+    <%= render 'follow_form' if logged_in? %>
+    <% if @user.microposts.any? %>
+        <h3>Microposts (<%= @user.microposts.count %>)</h3>
+        <ol class="microposts">
+          <%= render @microposts %>
+        </ol>
+        <%= will_paginate @microposts %>
+    <% end %>
+  </div>
+</div>
