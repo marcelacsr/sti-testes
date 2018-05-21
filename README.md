@@ -13,6 +13,10 @@ Para começar,  clone o repositório:
 ```
 $ git clone 
 ```
+rvm:
+```
+$ rvm use 2.4.1
+```
 Depois, rode um desses comandos (sintaxe diferente para comandos equivalentes)
 
 ```

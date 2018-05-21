@@ -1,0 +1,16 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: sampleapp_development
+  username: seuusername
+  password: suasenha
+
+test: &test
+  adapter: mysql2
+  encoding: utf8
+  database: sampleapp_test
+  username: seuusername
+  password: suasenha
+
+cucumber:
+  <<: *test
