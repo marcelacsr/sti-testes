@@ -8,7 +8,6 @@ is available jointly under the MIT License and the Beerware License. See
 Utilizei a aplicação como base para criação de testes. 
 Utilizando[*Rspec*](http://rspec.info/) e [*GitHub*](https://github.com/rspec/rspec-rails)
 
-
 Para começar,  clone o repositório:
 ```
 $ git clone 
@@ -31,7 +30,7 @@ rode o seguinte comando:
 rails generate rspec:install
 ```
 No MySql os bancos: sampleapp_development e sampleapp_test criados.
-O arquivo database.yml deve está configurado. Exemplo:
+O arquivo config/database.yml deve está configurado. Exemplo:
 ```
 development:
   adapter: mysql2
@@ -47,7 +46,6 @@ test: &test
   username: seuusername
   password: suasenha
 ```
-
 Drop database:
 ```
 $ rails db:drop
