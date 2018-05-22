@@ -6,7 +6,7 @@ class Micropost < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
 
-  scope :ordenado, -> {order('created_at')}
+  scope :ordenado, -> {order(created_at: :desc)}
 
   private
 

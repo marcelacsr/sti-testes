@@ -62,19 +62,24 @@ Seed database:
 ```
 $ rails db:seed
 ```
+Test:
+```
+$ rails db:test
+$ rake db:test:prepare
+```
 
 #####Welcome to the Sample App Tests 
 Finally, run the tests to verify that everything is working correctly:
 ```
-$ rake spec 
+$ rspec spec 
 ```
 Para rodar todos os testes de modelos:
 ```
-$ rake spec/models 
+$ rspec spec/models
 ```
 Para rodar testes de um modelo específico:
 ```
-$ rake spec/models/nome_do_modelo.rb 
+$ rspec spec/models/nome_do_modelo_spec.rb
 ```
 #####Welcome to the Sample App
 If the test suite passes, you'll be ready to run the app in a local server:

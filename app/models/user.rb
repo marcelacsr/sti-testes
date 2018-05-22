@@ -1,17 +1,9 @@
 class User < ApplicationRecord
+  before_save :downcase_email
+  before_create :create_activation_digest
   has_many :microposts, dependent: :destroy
-  # Here the option dependent: :destroy arranges for
-  # the dependent microposts to be destroyed when the
-  # user itself is destroyed. This prevents userless
-  # microposts from being stranded in the database
-  # when admins choose to remove users from the system.
-  # has_many :sent_notifications, class_name: "Notification",
-  #          foreign_key: "follower_id"
   has_many :received_notifications, class_name: 'Notification',
            foreign_key: 'followed_id'
-  has_attached_file :avatar, styles: { medium: '200x200', thumb: '50x50' },
-                    default_url: ''
-  validates_attachment_content_type :avatar, content_type: %r{/\Aimage\/.*\z/}
   has_many :active_relationships, class_name: 'Relationship',
            foreign_key: 'follower_id',
            dependent: :destroy
@@ -20,17 +12,23 @@ class User < ApplicationRecord
            dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
+
   attr_accessor :remember_token, :activation_token, :reset_token
-  before_save :downcase_email
-  before_create :create_activation_digest
-  validates :name, presence: true, length: { maximum: 50 }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  has_secure_password
+  has_attached_file :avatar, styles: { medium: '200x200', thumb: '50x50' },
+                    default_url: ''
+
+  validates_attachment_content_type :avatar, content_type: %r{/\Aimage\/.*\z/}
+  validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
-  has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :bio, length: { maximum: 160 }
+
 
   # Remembers a user in the database for use in persistent sessions.
   def remember
@@ -67,8 +65,6 @@ class User < ApplicationRecord
   # Activates an account.
   def activate
     update_attributes(activated: true, activated_at: Time.zone.now)
-    # update_attribute(:activated, true)
-    # update_attribute(:activated_at, Time.zone.now)
   end
 
   # Sends activation email.
@@ -85,8 +81,6 @@ class User < ApplicationRecord
     self.reset_token = User.new_token
     update_attributes(reset_digest: User.digest(reset_token),
                       reset_sent_at: Time.zone.now)
-    # update_attribute(:reset_digest, User.digest(reset_token))
-    # update_attribute(:reset_sent_at, Time.zone.now)
   end
 
   # Sends password reset email.
@@ -99,10 +93,6 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  # Defines a proto-feed.
-  # See "Following users" for the full implementation.
-  # Returns a user's status feed.
-  # Returns a user's status feed.
   # Returns a user's status feed.
   def feed
     following_ids = "SELECT followed_id FROM relationships

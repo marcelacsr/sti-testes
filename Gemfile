@@ -10,6 +10,8 @@ gem 'fog',                     '1.40.0'
 gem 'will_paginate',           '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'awesome_print'
+gem 'font-awesome-rails'
+
 
 gem 'bootstrap-sass', '3.3.7'
 gem 'puma',         '3.9.1'
@@ -29,8 +31,11 @@ group :development, :test do
   gem 'mysql2', '0.3.20'
   # gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
-  gem 'pry'
-  gem 'rspec-rails', '3.7'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'spring-commands-rspec', '1.0.4'
+  gem 'spring', '2.0.2'
 end
 
 group :development do
@@ -45,6 +50,10 @@ group :test do
   gem 'minitest-reporters',       '1.1.14'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
+  gem 'capybara', '~> 2.16'
+  gem 'poltergeist'
+  gem 'shoulda-matchers', '~> 3.1', require: false
+  gem 'database_cleaner'
 end
 
 # group :production do
