@@ -37,7 +37,8 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
   config.include(Shoulda::Matchers::Independent, type: :model)
-
+  config.include LoginHelper, type: :request
+  
   # config.before(:each, js: true) do
   # Capybara.page.driver.browser.manage.window.maximize
   # end
