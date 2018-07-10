@@ -4,7 +4,6 @@ RSpec.describe Micropost, type: :model do
   let(:micropost) { Micropost.new }
 
   describe 'associations' do
-
     it{ is_expected.to belong_to(:user) }
     # it{ is_expected.to have_one(:gestor_recurso).through(:pedido).
     # class_name('Usuario').with_foreign_key('usuario_id').source(:usuario) }
