@@ -11,7 +11,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.javascript_driver = :poltergeist
-
 Capybara.register_driver :poltergeist do |app|
   options = { js_errors: false, # silences js errors
               window_size: [1920,900] }
@@ -28,17 +27,15 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.render_views
   config.include FactoryBot::Syntax::Methods
-  # config.include SelectDateHelper
   config.include Paperclip::Shoulda::Matchers
-  # config.include EmailSpec::Helpers
-  # config.include EmailSpec::Matchers
   config.include ActiveSupport::Testing::TimeHelpers
-
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
   config.include(Shoulda::Matchers::Independent, type: :model)
   config.include LoginHelper, type: :request
-  
+  config.include LoginHelper, type: :feature
+  config.include LoginHelper, type: :controller
+
   # config.before(:each, js: true) do
   # Capybara.page.driver.browser.manage.window.maximize
   # end
